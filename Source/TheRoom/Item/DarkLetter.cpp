@@ -1,6 +1,9 @@
 #include "Item/DarkLetter.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/LetterWidget.h"
+#include "Blueprint/UserWidget.h"
+#include "TheRoomCharacter.h"
 
 ADarkLetter::ADarkLetter()
 {
@@ -10,14 +13,22 @@ ADarkLetter::ADarkLetter()
 
 void ADarkLetter::ActivateItem(AActor* Activator)
 {
-	TArray<AActor*> OverlappingActors;
-	Collision->GetOverlappingActors(OverlappingActors);
-	
-	for (AActor* Actor : OverlappingActors)
+	if (Activator && Activator->ActorHasTag("Player"))
 	{
-		if (Activator && Activator->ActorHasTag("Player"))
+		ATheRoomCharacter* PlayerCharacter = Cast<ATheRoomCharacter>(Activator);
+		if (!PlayerCharacter) return;
+		
+		if (LetterWidgetInstance)
 		{
-			
+			LetterWidgetInstance->RemoveFromParent();
+			LetterWidgetInstance = nullptr;
+			PlayerCharacter->ShowInteraction();
+		}
+		else if (LetterWidgetClass)
+		{
+			LetterWidgetInstance = CreateWidget<ULetterWidget>(GetWorld(), LetterWidgetClass);
+			LetterWidgetInstance->AddToViewport();
+			PlayerCharacter->HideInteraction();
 		}
 	}
 }
