@@ -4,6 +4,9 @@
 #include "Item/BaseItem.h"
 #include "Door.generated.h"
 
+class ADarkLetter;
+class UInteractionWidget;
+
 UCLASS()
 class THEROOM_API ADoor : public ABaseItem
 {
@@ -13,4 +16,14 @@ public:
 	ADoor();
 	
 	virtual void ActivateItem(AActor* Activator) override;
+	
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Door")
+	ADarkLetter* RequiredLetter;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Door")
+	TSubclassOf<UInteractionWidget> LockedMessageClass;
+	
+	UPROPERTY()
+	UInteractionWidget* LockedWidgetInstance;
 };

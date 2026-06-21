@@ -29,6 +29,12 @@ void ADarkLetter::ActivateItem(AActor* Activator)
 			LetterWidgetInstance = CreateWidget<ULetterWidget>(GetWorld(), LetterWidgetClass);
 			LetterWidgetInstance->AddToViewport();
 			PlayerCharacter->HideInteraction();
+			bRead = true;
 		}
 	}
+}
+
+bool ADarkLetter::IsRead() const
+{
+	return bRead;
 }

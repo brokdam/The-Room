@@ -16,10 +16,16 @@ public:
 	
 	virtual void ActivateItem(AActor* Activator) override;
 	
+	bool IsRead() const;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Letter")
 	TSubclassOf<ULetterWidget> LetterWidgetClass;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Letter")
+	bool bRead = false;
 
 	UPROPERTY()
 	ULetterWidget* LetterWidgetInstance;
+	
 };
