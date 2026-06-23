@@ -74,6 +74,8 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 	
+	virtual void Tick(float DeltaTime) override;
+	
 	void Interact();
 
 protected:

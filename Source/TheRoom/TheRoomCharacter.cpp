@@ -98,6 +98,38 @@ void ATheRoomCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+void ATheRoomCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	
+	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
+	FVector End = Start + (FirstPersonCameraComponent->GetForwardVector() * 700.0f);
+
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	
+	bool bHit = 
+		GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, QueryParams);
+	
+	ABaseItem* HitItem = bHit ? Cast<ABaseItem>(HitResult.GetActor()) : nullptr;
+	
+	if (HitItem != CurrentInteractable)
+	{
+		if (CurrentInteractable)
+		{
+			HideInteraction();
+		}
+
+		CurrentInteractable = HitItem;
+
+		if (CurrentInteractable)
+		{
+			ShowInteraction();
+		}
+	}
+}
+
 void ATheRoomCharacter::Interact()
 {
 	if (CurrentInteractable)

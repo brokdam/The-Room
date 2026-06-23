@@ -28,15 +28,7 @@ void ABaseItem::OnItemOverlap(
 	   bool bFromSweep,
 	   const FHitResult& SweepResult)
 {
-	if (OtherActor && OtherActor->ActorHasTag("Player"))
-	{
-		ATheRoomCharacter* PlayerCharacter = Cast<ATheRoomCharacter>(OtherActor);
-		if (PlayerCharacter)
-		{
-			PlayerCharacter->CurrentInteractable = this;
-			PlayerCharacter->ShowInteraction();
-		}
-	}
+	
 }
 
 void ABaseItem::OnItemEndOverlap(
@@ -45,15 +37,7 @@ void ABaseItem::OnItemEndOverlap(
 	   UPrimitiveComponent* OtherComp,
 	   int32 OtherBodyIndex)
 {
-	if (OtherActor && OtherActor->ActorHasTag("Player"))
-	{
-		ATheRoomCharacter* PlayerCharacter = Cast<ATheRoomCharacter>(OtherActor);
-		if (PlayerCharacter && PlayerCharacter->CurrentInteractable == this)
-		{
-			PlayerCharacter->CurrentInteractable = nullptr;
-			PlayerCharacter->HideInteraction();
-		}
-	}
+	
 }
 
 void ABaseItem::ActivateItem(AActor* Activator)
