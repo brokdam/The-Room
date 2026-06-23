@@ -14,7 +14,7 @@ ABaseItem::ABaseItem()
 	Collision->SetupAttachment(Scene);
 	
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	StaticMesh->SetupAttachment(Collision);
+	StaticMesh->SetupAttachment(Scene);
 	
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &ABaseItem::OnItemOverlap);
 	Collision->OnComponentEndOverlap.AddDynamic(this, &ABaseItem::OnItemEndOverlap);

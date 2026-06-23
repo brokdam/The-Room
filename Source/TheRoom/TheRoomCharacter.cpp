@@ -119,8 +119,6 @@ void ATheRoomCharacter::Tick(float DeltaTime)
 	{
 		ADesk* HitDesk = Cast<ADesk>(HitResult.GetActor());
 		
-		UE_LOG(LogTemp, Warning, TEXT("Hit Component: %s"), *HitResult.GetComponent()->GetName());
-
 		if (HitDesk)
 		{
 			if (HitDesk->IsHitComponentDrawer(HitResult.GetComponent()))
