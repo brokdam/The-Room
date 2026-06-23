@@ -9,6 +9,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Item/BaseItem.h"
 #include "Blueprint/UserWidget.h"
+#include "Item/Desk.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -112,13 +113,36 @@ void ATheRoomCharacter::Tick(float DeltaTime)
 	bool bHit = 
 		GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, QueryParams);
 	
-	ABaseItem* HitItem = bHit ? Cast<ABaseItem>(HitResult.GetActor()) : nullptr;
+	ABaseItem* HitItem = nullptr;
+    
+	if (bHit)
+	{
+		ADesk* HitDesk = Cast<ADesk>(HitResult.GetActor());
+		
+		UE_LOG(LogTemp, Warning, TEXT("Hit Component: %s"), *HitResult.GetComponent()->GetName());
+
+		if (HitDesk)
+		{
+			if (HitDesk->IsHitComponentDrawer(HitResult.GetComponent()))
+			{
+				HitItem = HitDesk;
+			}
+		}
+		else
+		{
+			HitItem = Cast<ABaseItem>(HitResult.GetActor());
+		}
+	}
 	
 	if (HitItem != CurrentInteractable)
 	{
 		if (CurrentInteractable)
 		{
 			HideInteraction();
+			if (UStaticMeshComponent* OutlineMesh = CurrentInteractable->GetOutlineMesh())
+			{
+				OutlineMesh->SetRenderCustomDepth(false);
+			}
 		}
 
 		CurrentInteractable = HitItem;
@@ -126,6 +150,10 @@ void ATheRoomCharacter::Tick(float DeltaTime)
 		if (CurrentInteractable)
 		{
 			ShowInteraction();
+			if (UStaticMeshComponent* OutlineMesh = CurrentInteractable->GetOutlineMesh())
+			{
+				OutlineMesh->SetRenderCustomDepth(true);
+			}
 		}
 	}
 }

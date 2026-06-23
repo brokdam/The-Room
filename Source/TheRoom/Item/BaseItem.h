@@ -15,6 +15,7 @@ class THEROOM_API ABaseItem : public AActor, public IItemInterface
 public:	
 	ABaseItem();
 	virtual void ActivateItem(AActor* Activator) override;
+	virtual UStaticMeshComponent* GetOutlineMesh() const { return StaticMesh; }
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")

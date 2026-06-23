@@ -13,6 +13,9 @@ public:
 	ADesk();
 	
 	virtual void ActivateItem(AActor* Activator) override;
+	
+	bool IsHitComponentDrawer(UPrimitiveComponent* HitComponent) const;
+	virtual UStaticMeshComponent* GetOutlineMesh() const override { return DrawerMesh; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Desk")

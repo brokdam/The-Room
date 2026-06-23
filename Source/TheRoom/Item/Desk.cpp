@@ -27,3 +27,8 @@ void ADesk::ActivateItem(AActor* Activator)
 		}
 	}
 }
+
+bool ADesk::IsHitComponentDrawer(UPrimitiveComponent* HitComponent) const
+{
+	return HitComponent == DrawerMesh;
+}
