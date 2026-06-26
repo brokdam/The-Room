@@ -55,6 +55,9 @@ class ATheRoomCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Interaction, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UInteractionWidget> InteractionWidgetClass;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> CrosshairWidgetClass;
+	
 public:
 	ATheRoomCharacter();
 
@@ -63,6 +66,9 @@ public:
 	
 	UPROPERTY()
 	UInteractionWidget* InteractionWidgetInstance;
+	
+	UPROPERTY()
+	UUserWidget* CrosshairWidgetInstance;
 	
 	void ShowInteraction();
 	void HideInteraction();
@@ -83,6 +89,7 @@ protected:
 	virtual void NotifyControllerChanged() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
+	virtual void BeginPlay() override;
 
 public:
 	/** Returns Mesh1P subobject **/

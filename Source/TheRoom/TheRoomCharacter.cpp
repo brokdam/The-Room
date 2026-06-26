@@ -72,6 +72,17 @@ void ATheRoomCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	}
 }
 
+void ATheRoomCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (CrosshairWidgetClass)
+	{
+		CrosshairWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), CrosshairWidgetClass);
+		CrosshairWidgetInstance->AddToViewport();
+	}
+}
+
 
 void ATheRoomCharacter::Move(const FInputActionValue& Value)
 {
