@@ -147,6 +147,8 @@ void ATheRoomCharacter::Tick(float DeltaTime)
 
 		if (CurrentInteractable)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Hit Item: %s"), *CurrentInteractable->GetName()); // 추가
+
 			ShowInteraction();
 			if (UStaticMeshComponent* OutlineMesh = CurrentInteractable->GetOutlineMesh())
 			{

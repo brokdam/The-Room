@@ -7,7 +7,7 @@ ABrightLetter::ABrightLetter()
 {
 	ItemType = "BrightLetter";
 	
-	// StaticMesh->SetVisibility(false);
+	StaticMesh->SetVisibility(false);
 	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
